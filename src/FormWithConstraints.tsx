@@ -294,7 +294,7 @@ export interface FormWithConstraintsContext {
 
 // See How to safely use React context https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076
 // See TypeScript 2.2 Support for Mix-in classes https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
-export class FormWithConstraints<P = {}, S = {}> extends React.Component<P, S> {
+export class FormWithConstraints extends React.Component {
   static childContextTypes = {
     form: PropTypes.object.isRequired
   };
@@ -354,6 +354,31 @@ export class FormWithConstraints<P = {}, S = {}> extends React.Component<P, S> {
     const fieldNames = Object.keys(this.fields);
     return !FormFields.containErrors(this, ...fieldNames);
   }
+}
+
+
+export interface withConstraintsProps {
+  form: {
+    handleChange: (e: React.FormEvent<Input>) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    isValid: () => boolean;
+  };
+}
+
+// HOC - higher-order component
+// See https://facebook.github.io/react/docs/higher-order-components.html
+export function withConstraints(Form: React.ComponentClass<withConstraintsProps>) {
+  return class WithConstraints extends FormWithConstraints {
+    render() {
+      const form = {
+        handleChange: this.handleChange.bind(this),
+        handleSubmit: this.handleSubmit.bind(this),
+        isValid: this.isValid.bind(this)
+      };
+
+      return <Form form={form} />;
+    }
+  };
 }
 
 

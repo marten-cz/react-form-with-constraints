@@ -6,12 +6,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedback, Bootstrap4 } from '../../index';
+import { withConstraints, FieldFeedback, Bootstrap4 } from '../../index';
 const { FieldFeedbacks, FormGroup, FormControlLabel, FormControlInput } = Bootstrap4;
 
 import 'file-loader?name=[path][name].[ext]!./index.html';
 
-class Form extends FormWithConstraints {
+class Form extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,15 +32,15 @@ class Form extends FormWithConstraints {
       [target.name]: target.value
     });
 
-    super.handleChange(e);
+    this.props.form.handleChange(e);
   }
 
   handleSubmit(e) {
-    super.handleSubmit(e);
+    this.props.form.handleSubmit(e);
 
     console.log('state:', JSON.stringify(this.state));
 
-    if (!this.isValid()) {
+    if (!this.props.form.isValid()) {
       console.log('form is invalid: do not submit');
     } else {
       console.log('form is valid: submit');
@@ -91,6 +91,7 @@ class Form extends FormWithConstraints {
     );
   }
 }
+const FormWithConstraints = withConstraints(Form);
 
 const App = () => (
   <div className="container">
@@ -99,7 +100,7 @@ const App = () => (
       <br />
       Original code: <a href="https://codepen.io/jmalfatto/pen/YGjmaJ">https://codepen.io/jmalfatto/pen/YGjmaJ</a>
     </p>
-    <Form />
+    <FormWithConstraints />
     <small>Note: see console for submit event logging</small>
   </div>
 );

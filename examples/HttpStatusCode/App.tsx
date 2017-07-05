@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../index';
+import { withConstraints, withConstraintsProps, FieldFeedbacks, FieldFeedback } from '../../index';
 
 import 'file-loader?name=[path][name].[ext]!./index.html';
 import 'file-loader?name=[path][name].[ext]!./style.css';
 
-interface Props {}
+interface Props extends withConstraintsProps {}
 
 interface State {
   [name: string]: string;
@@ -15,7 +15,7 @@ interface State {
 }
 
 // Inspired by http://codepen.io/nukos/pen/RPwxBp
-class Form extends FormWithConstraints<Props, State> {
+class Form extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -34,13 +34,13 @@ class Form extends FormWithConstraints<Props, State> {
       [target.name]: target.value
     });
 
-    super.handleChange(e);
+    this.props.form.handleChange(e);
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    super.handleSubmit(e);
+    this.props.form.handleSubmit(e);
 
-    if (this.isValid()) {
+    if (this.props.form.isValid()) {
       console.log('form is valid: submit');
     } else {
       console.log('form is invalid');
@@ -69,13 +69,14 @@ class Form extends FormWithConstraints<Props, State> {
     );
   }
 }
+const FormWithConstraints = withConstraints(Form);
 
 const App = () => (
   <div>
     <p>
       Inspired by <a href="http://codepen.io/nukos/pen/RPwxBp">http://codepen.io/nukos/pen/RPwxBp</a>
     </p>
-    <Form />
+    <FormWithConstraints />
   </div>
 );
 

@@ -100,13 +100,12 @@ for field "password" when constraint violation "valueMissing"    display "the de
   - `info?: boolean` => treat the feedback as an info
   - `children?: string` => the text to display or the default HTML5 text if `undefined`
 
-- `FormWithConstraints`
-  - `handleChange(e: React.FormEvent<Input>): void` => needs to be called whenever an `input` from the `form` changes
-  - `handleSubmit(e: React.FormEvent<HTMLFormElement>): void`
-  - `hasErrors(...fieldNames: string[]): boolean`
-  - `hasWarnings(...fieldNames: string[]): boolean`
-  - `hasInfos(...fieldNames: string[]): boolean`
-  - `isValid(): boolean`
+- `withConstraints(Form: React.ComponentClass<withConstraintsProps>)` => HOC
+
+- `withConstraintsProps`
+  - `form.handleChange(e: React.FormEvent<Input>): void` => needs to be called whenever an `input` from the `form` changes
+  - `form.handleSubmit(e: React.FormEvent<HTMLFormElement>): void`
+  - `form.isValid(): boolean`
 
 ## Browser support
 

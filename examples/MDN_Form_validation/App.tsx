@@ -3,28 +3,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedbacks, FieldFeedback } from '../../index';
+import { withConstraints, withConstraintsProps, FieldFeedbacks, FieldFeedback } from '../../index';
 
 import 'file-loader?name=[path][name].[ext]!./style.css';
 import 'file-loader?name=[path][name].[ext]!./index.html';
 import 'file-loader?name=[path][name].[ext]!./original.html';
 
-class Form extends FormWithConstraints {
-  constructor(props: {}) {
+class Form extends React.Component<withConstraintsProps> {
+  constructor(props: withConstraintsProps) {
     super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {
     return (
-      <form noValidate onSubmit={this.handleSubmit}>
+      <form noValidate onSubmit={this.props.form.handleSubmit}>
         <p>
           <fieldset>
             <legend>Title<abbr title="This field is mandatory">*</abbr></legend>
-            <input type="radio" required name="title" id="r1" value="Mr" onChange={this.handleChange} /><label htmlFor="r1">Mr.</label>
-            <input type="radio" required name="title" id="r2" value="Ms" onChange={this.handleChange} /><label htmlFor="r2">Ms.</label>
+            <input type="radio" required name="title" id="r1" value="Mr" onChange={this.props.form.handleChange} /><label htmlFor="r1">Mr.</label>
+            <input type="radio" required name="title" id="r2" value="Ms" onChange={this.props.form.handleChange} /><label htmlFor="r2">Ms.</label>
             <FieldFeedbacks for="title">
               <FieldFeedback when="*" />
             </FieldFeedbacks>
@@ -38,7 +35,7 @@ class Form extends FormWithConstraints {
               fail silently when used with a number field.
               Its usage here acts only as a fallback */}
           <input type="number" min={12} max={120} step={1} id="n1" name="age"
-                 pattern="\d+" onChange={this.handleChange} />
+                 pattern="\d+" onChange={this.props.form.handleChange} />
           <FieldFeedbacks for="age">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -46,7 +43,7 @@ class Form extends FormWithConstraints {
         <p>
           <label htmlFor="t1">What's your favorite fruit?<abbr title="This field is mandatory">*</abbr></label>
           <input type="text" id="t1" name="fruit" list="l1" required
-                 pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range" onChange={this.handleChange} />
+                 pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range" onChange={this.props.form.handleChange} />
           <datalist id="l1">
             <option>Banana</option>
             <option>Cherry</option>
@@ -61,14 +58,14 @@ class Form extends FormWithConstraints {
         </p>
         <p>
           <label htmlFor="t2">What's your e-mail?</label>
-          <input type="email" id="t2" name="email" onChange={this.handleChange} />
+          <input type="email" id="t2" name="email" onChange={this.props.form.handleChange} />
           <FieldFeedbacks for="email">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
         </p>
         <p>
           <label htmlFor="t3">Leave a short message</label>
-          <textarea id="t3" name="msg" maxLength={140} rows={5} onChange={this.handleChange} />
+          <textarea id="t3" name="msg" maxLength={140} rows={5} onChange={this.props.form.handleChange} />
           <FieldFeedbacks for="msg">
             <FieldFeedback when="*" />
           </FieldFeedbacks>
@@ -80,11 +77,12 @@ class Form extends FormWithConstraints {
     );
   }
 }
+const FormWithConstraints = withConstraints(Form);
 
 const App = () => (
   <div>
     Taken and adapted from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation">MDN - Form data validation</a>: <a href="original.html">original demo</a>
-    <Form />
+    <FormWithConstraints />
   </div>
 );
 
