@@ -26,9 +26,9 @@ test('with Bootstrap4', () => {
     <div>
       <Bootstrap4.FormGroup for="username">
         <Bootstrap4.FormControlInput name="username" value="" required />
-        <Bootstrap4.FieldFeedbacks for="username">
+        <FieldFeedbacks for="username">
           <FieldFeedback when="*" />
-        </Bootstrap4.FieldFeedbacks>
+        </FieldFeedbacks>
       </Bootstrap4.FormGroup>
     </div>
   );

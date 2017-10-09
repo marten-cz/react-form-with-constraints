@@ -3,8 +3,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FormWithConstraints, FieldFeedback } from '../../src/index';
-import { FieldFeedbacks, FormGroup, FormControlLabel, FormControlInput } from '../../src/Bootstrap4';
+import { FormWithConstraints, FieldFeedbacks } from '../../src/index';
+import { FieldFeedback, FormGroup, FormControlLabel, FormControlInput } from '../../src/Bootstrap4';
 
 import './index.html';
 

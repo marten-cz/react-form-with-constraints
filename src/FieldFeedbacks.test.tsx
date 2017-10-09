@@ -211,7 +211,7 @@ describe('render()', () => {
       }
     });
     expect(component.html()).toEqual(
-      '<div><div><div class="error">Suffering from being missing</div></div></div>'
+      '<div><div class="error">Suffering from being missing</div></div>'
     );
   });
 
@@ -229,9 +229,7 @@ describe('render()', () => {
     expect(form.fieldsStore.fields).toEqual({
       username: fieldWithoutFeedback
     });
-    expect(component.html()).toEqual(
-      '<div></div>'
-    );
+    expect(component.html()).toEqual(null);
   });
 
   describe('show prop', () => {
@@ -259,7 +257,7 @@ describe('render()', () => {
       });
 
       expect(component.html()).toEqual(
-        '<div><div class="error">Suffering from being missing</div><div class="error">Suffering from being missing</div><div class="error">Suffering from being missing</div></div>'
+        '<div class="error">Suffering from being missing</div><div class="error">Suffering from being missing</div><div class="error">Suffering from being missing</div>'
       );
     });
 
@@ -287,7 +285,7 @@ describe('render()', () => {
       });
 
       expect(component.html()).toEqual(
-        '<div><div class="error">Suffering from being missing</div></div>'
+        '<div class="error">Suffering from being missing</div>'
       );
     });
 
@@ -315,7 +313,7 @@ describe('render()', () => {
       });
 
       expect(component.html()).toEqual(
-        '<div><div class="error">Suffering from being missing</div><div class="info">Suffering from being missing</div></div>'
+        '<div class="error">Suffering from being missing</div><div class="info">Suffering from being missing</div>'
       );
     });
   });
@@ -343,13 +341,11 @@ describe('reRender()', () => {
       }
     });
     expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
+      '<div class="error">Suffering from being missing</div>'
     );
 
     form.fieldsStore.updateField('username', fieldWithoutFeedback);
-    expect(component.html()).toEqual(
-      '<div></div>'
-    );
+    expect(component.html()).toEqual(null);
   });
 
   test('unknown field updated', () => {
@@ -373,7 +369,7 @@ describe('reRender()', () => {
       }
     });
     expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
+      '<div class="error">Suffering from being missing</div>'
     );
 
     const assert = console.assert;
@@ -387,7 +383,7 @@ describe('reRender()', () => {
     console.assert = assert;
 
     expect(component.html()).toEqual(
-      '<div><div class="error">Suffering from being missing</div></div>'
+      '<div class="error">Suffering from being missing</div>'
     );
   });
 });

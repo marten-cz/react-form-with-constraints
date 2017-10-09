@@ -7,7 +7,7 @@ import { EventEmitter } from './EventEmitter'; // FIXME See https://github.com/M
 import Input from './Input';
 import { FieldEvent } from './FieldsStore';
 
-export interface FieldFeedbacksProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FieldFeedbacksProps {
   for: string;
 
   /**
@@ -116,7 +116,7 @@ export class FieldFeedbacks extends withValidateEventEmitter(FieldFeedbacksCompo
   }
 
   render() {
-    const { for: fieldName, show, children, ...divProps } = this.props;
-    return <div {...divProps}>{children}</div>;
+    const { children } = this.props;
+    return children !== undefined ? children : null;
   }
 }

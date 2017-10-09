@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 
 import {
   Input, FormWithConstraintsChildContext,
-  FieldFeedbacks as FieldFeedbacks_, FieldFeedbacksProps
+  FieldFeedback as FieldFeedback_, FieldFeedbackProps
 } from './index';
 
 export interface FormGroupProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -132,12 +132,12 @@ export class FormControlInput extends React.Component<FormControlInputProps> {
 }
 
 
-const FieldFeedbacks: React.SFC<FieldFeedbacksProps> = props => {
+const FieldFeedback: React.SFC<FieldFeedbackProps> = props => {
   const { className, children, ...other } = props;
   const classes = className !== undefined ? `${className} form-control-feedback` : 'form-control-feedback';
-  return <FieldFeedbacks_ {...other} className={classes}>{children}</FieldFeedbacks_>;
+  return <FieldFeedback_ {...other} className={classes}>{children}</FieldFeedback_>;
 };
-export { FieldFeedbacks };
+export { FieldFeedback };
 
 
 export interface LabelWithFormControlStyleProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
